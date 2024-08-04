@@ -22,6 +22,12 @@ public class controller {
 		
 		}
 	public void addProducts(List<Product>newProduct){
-		store.getProducts().addAll(newProduct);
+		if(store.getProducts()==null) {
+			for(Product product: newProduct) {
+				addProduct(product);
+			}
+		}else {
+			store.getProducts().addAll(newProduct);
+		}
 	}
 }
