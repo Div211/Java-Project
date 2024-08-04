@@ -55,9 +55,6 @@ public class view {
 			
 			break;
 		case 6:
-			if(store.getProducts() != null) 
-				controller.addProducts(addProducts());
-			else
 			controller.addProducts(addProducts());
 			System.out.println(store.getProducts());
 			break;
