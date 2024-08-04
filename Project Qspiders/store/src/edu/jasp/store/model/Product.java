@@ -2,9 +2,10 @@ package edu.jasp.store.model;
 
 public class Product {
 private int id;
-private int name;
+private String name;
+private double price;
 private int quantity;
-private int availibility;
+private boolean availibility;
 
 public int getId() {
 	return id;
@@ -12,11 +13,17 @@ public int getId() {
 public void setId(int id) {
 	this.id = id;
 }
-public int getName() {
+public String getName() {
 	return name;
 }
-public void setName(int name) {
+public void setName(String name) {
 	this.name = name;
+}
+public double getPrice() {
+	return price;
+}
+public void setPrice(double price) {
+	this.price = price;
 }
 public int getQuantity() {
 	return quantity;
@@ -24,22 +31,26 @@ public int getQuantity() {
 public void setQuantity(int quantity) {
 	this.quantity = quantity;
 }
-public int getAvailibility() {
+public boolean getAvailibility() {
 	return availibility;
 }
-public void setAvailibility(int availibility) {
+public void setAvailibility(boolean availibility) {
 	this.availibility = availibility;
 }
-public Product(int id, int name, int quantity, int availibility) {
+public Product(int id, String name,double price, int quantity, boolean availibility) {
 	super();
 	this.id = id;
 	this.name = name;
+	this.price = price;
 	this.quantity = quantity;
 	this.availibility = availibility;
 }
+
 @Override
 public String toString() {
-	return "Product [id=" + id + ",\n name=" + name + ",\n quantity=" + quantity + ",\n availibility=" + availibility + "]";
+	return "Product [id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", availibility="
+			+ availibility + "]";
 }
+
 
 }
