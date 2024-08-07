@@ -2,6 +2,9 @@ package edu.jasp.store.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import org.w3c.dom.ls.LSOutput;
+
 import edu.jasp.store.controller.controller;
 import edu.jasp.store.model.Product;
 import edu.jasp.store.model.Store;
@@ -29,7 +32,7 @@ public class view {
 	public static void main(String[] args) {
 	do {
 		System.out.println("Select option from below list: ");
-		System.out.println("1.Display store information\n2.Add product\n3.Display all product\n4.Remove product\n5.Remove Product\n6.Add products\n0.Exit");
+		System.out.println("1.Display store information\n2.Add product\n3.Display all product\n4.Update product\n5.Remove Product\n6.Add products\n7.Particular Product Details\n0.Exit");
 		System.out.println("Enter digit respective to desired option: ");
 		byte userChoice = myInput.nextByte();
 		myInput.nextLine();
@@ -46,17 +49,58 @@ public class view {
 			System.out.println(store.getProducts());
 			break;
 		case 3:
+				diplayAllProducts();
 			
 			break;
 		case 4:
-			
+				diplayAllProducts();
+				System.out.print("Enter the id want to update: ");
+				int productIdToUpdate = myInput.nextInt();
+				myInput.nextLine();
+				byte updateOption = myInput.nextByte();
+				myInput.nextLine();
+				switch(updateOption) {
+				case 1:
+					System.out.println("Enter name to update");
+					String newName = myInput.nextLine();
+					controller.updateProductName(productIdToUpdate, newName);
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+				case 4:
+					
+					break;
+					default:
+						System.out.print("------Invalid Selection------\n");
+				}
 			break;
 		case 5:
-			
+				if(diplayAllProducts()) {
+					boolean flag = true;
+					ArrayList<Integer> productIdsToRemove = new ArrayList<Integer>();
+					do {
+						System.out.println("Enter product id to remove: ");
+						int idToRemove = myInput.nextInt();
+						myInput.nextLine();
+						productIdsToRemove.add(idToRemove);
+						System.out.println("Continue adding id to remove? y/n ");
+						if(myInput.next().charAt(0)=='n') {
+							flag = false;
+						}
+					}while(flag);
+					controller.removeProduct(productIdsToRemove);
+				}
 			break;
 		case 6:
 			controller.addProducts(addProducts());
 			System.out.println(store.getProducts());
+			break;
+		case 7:
+			
 			break;
 		default:
 			System.out.println("Invalid choice");
@@ -96,4 +140,25 @@ public class view {
 			}while(toContinue);
 			return newProductList;
 		}
+	
+	public static boolean diplayAllProducts() {
+		// table header
+		List<Product>allProducts = controller.getAllProduct();
+		if(allProducts == null) {
+			System.out.println("No products to display\n");
+			return false;
+		}else {
+		System.out.printf("|%-5s|%-15s|%-11s|%-10s|%-12s|", "ID", "NAME", "PRICE", "QUANTITY", "AVAILABILITY");
+		System.out.println();
+		for (Product product : allProducts) {
+			System.out.printf("|%-5d|", product.getId());
+			System.out.printf("%-15s|", product.getName());
+			System.out.printf("%-11f|", product.getPrice());
+			System.out.printf("%-10d|", product.getQuantity());
+			System.out.printf("%-12b|", product.getAvailibility());
+			System.out.println();
+			}
+		return true;
+		}
+	}
 }
