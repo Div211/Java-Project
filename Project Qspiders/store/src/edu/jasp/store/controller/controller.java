@@ -30,4 +30,36 @@ public class controller {
 			store.getProducts().addAll(newProduct);
 		}
 	}
+	public List<Product> getAllProduct(){
+		return store.getProducts();
+	}
+	
+	public void removeProduct(List<Integer>products) {
+		List<Product> existingProduct = store.getProducts();
+		ArrayList<Product> productToRemove = new ArrayList<Product>();
+		//to change target
+		for(Integer productTarget: products ) {
+			//eliminate target
+			int targerId = productTarget;
+			for(Product productEliminator : existingProduct) {
+				if(productEliminator.getId() == targerId) {
+					productToRemove.add(productEliminator);
+				}
+			}
+		}
+		store.getProducts().removeAll(productToRemove);
+	}
+	
+	public void updateProductName(int productIdToUpadate, String newName) {
+		Product product = getProduct (productIdToUpadate);
+		getProduct(productIdToUpadate).setName(newName);
+	}
+	public Product getProduct(int productId) {
+		for(Product product : store.getProducts()) {
+			if(product.getId()==productId) {
+				return product;
+			}
+		}
+		return null;
+	}
 }
